@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Lista zadań</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script>
         function getScreenSize() {
             const width = window.innerWidth;
@@ -51,7 +50,7 @@
                     columnCount = 4;
             }
             for (var i = 0; i < columnCount; i++)
-                list.innerHTML += '<div class="column is-flex-direction-column"></div>';
+                list.appendChild(createElement("div", ["column", "is-flex-direction-vertical"]));
 
             populateList(columnCount);
         }
@@ -80,24 +79,35 @@
                 for (var x = 0; x < columnCount; x++) {
                     var i = y * columnCount + x;
                     if (i < textList.length)
-                    //list.children[x].appendChild(createTile(textList[i]));
                         list.children[x].appendChild(createBox(textList[i]));
                 }
             }
         }
 
-        function createTile(titleText) {
-            var tile = document.createElement("div");
-            tile.classList.add("tile", "is-parent");
-            tile.innerHTML = '<article class="tile is-child notification is-primary"><p class="title">' + titleText + '</p></article>';
-            return tile;
+        /**
+         * @param {string} titleText
+         */
+        function createBox(titleText) {
+            const p = createElement("p", ["title"], [], titleText);
+            const content = createElement("div", ["content"], [p])
+            const box = createElement("div", ["box", "is-flex"], [content])
+            return box;
         }
 
-        function createBox(titleText) {
-            var box = document.createElement("div");
-            box.classList.add("box", "is-flex");
-            box.innerHTML = '<div class="content"><p class="title">' + titleText + '</p></div>';
-            return box;
+        /**
+         * @param {string} type
+         * @param {string[]} classes
+         * @param {HTMLElement[]} children
+         * @param {string} innerHTML
+         */
+        function createElement(type, classes = [], children = [], innerHTML = "") {
+            var element = document.createElement(type);
+            for (var i = 0; i < classes.length; i++)
+                element.classList.add(classes[i]);
+            element.innerHTML = innerHTML;
+            for (var i = 0; i < children.length; i++)
+                element.appendChild(children[i]);
+            return element;
         }
     </script>
 </head>
