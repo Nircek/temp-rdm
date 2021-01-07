@@ -22,6 +22,15 @@
             else
                 return "fullhd";
         }
+        var screenSize = getScreenSize();
+
+        function updateView() {
+            const newScreenSize = getScreenSize()
+            if (screenSize != newScreenSize) {
+                screenSize = newScreenSize;
+                createList();
+            }
+        }
 
         function createList() {
             var list = document.getElementById("list");
@@ -35,6 +44,7 @@
                     columnCount = 2;
                     break;
                 case "desktop":
+                case "widescreen":
                     columnCount = 3;
                     break;
                 default:
@@ -92,12 +102,9 @@
     </script>
 </head>
 
-<body style="height: 100vh;" onload="createList();" onresize="createList();">
+<body style="height: 100vh;" onload="createList();" onresize="updateView();">
     <section class="section" style="height: 100%;">
         <div id="list" class="columns">
-            <!--<div class="column is-flex-direction-column"></div>
-            <div class="column is-flex-direction-column"></div>
-            <div class="column is-flex-direction-column"></div>-->
         </div>
     </section>
 </body>
