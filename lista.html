@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lista zadań</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script>
+        function getScreenSize() {
+            const width = window.innerWidth;
+            //Screen size breakpoints
+            if (width <= 768)
+                return "mobile";
+            else if (width <= 1023)
+                return "tablet";
+            else if (width <= 1215)
+                return "desktop";
+            else if (width <= 1407)
+                return "widescreen";
+            else
+                return "fullhd";
+        }
+
+        function createList() {
+            var list = document.getElementById("list");
+            list.innerHTML = "";
+            var columnCount;
+            switch (getScreenSize()) {
+                case "mobile":
+                    columnCount = 1;
+                    break;
+                case "tablet":
+                    columnCount = 2;
+                    break;
+                case "desktop":
+                    columnCount = 3;
+                    break;
+                default:
+                    columnCount = 4;
+            }
+            for (var i = 0; i < columnCount; i++)
+                list.innerHTML += '<div class="column is-flex-direction-column"></div>';
+
+            populateList(columnCount);
+        }
+
+        function populateList(columnCount) {
+            var textList = [
+                "Zadanie 1",
+                "Zadanie 2",
+                "Zadanie 3",
+                "Zadanie 4",
+                "Zadanie 5",
+                "Zadanie 6",
+                "Zadanie 7",
+                "Zadanie 8",
+                "Zadanie 9",
+                "Zadanie 10",
+                "Zadanie 11",
+                "Zadanie 12",
+                "Zadanie 13",
+                "Zadanie 14"
+            ];
+
+            var list = document.getElementById("list");
+
+            for (var y = 0; y < Math.ceil(textList.length * 1.0 / columnCount); y++) {
+                for (var x = 0; x < columnCount; x++) {
+                    var i = y * columnCount + x;
+                    if (i < textList.length)
+                    //list.children[x].appendChild(createTile(textList[i]));
+                        list.children[x].appendChild(createBox(textList[i]));
+                }
+            }
+        }
+
+        function createTile(titleText) {
+            var tile = document.createElement("div");
+            tile.classList.add("tile", "is-parent");
+            tile.innerHTML = '<article class="tile is-child notification is-primary"><p class="title">' + titleText + '</p></article>';
+            return tile;
+        }
+
+        function createBox(titleText) {
+            var box = document.createElement("div");
+            box.classList.add("box", "is-flex");
+            box.innerHTML = '<div class="content"><p class="title">' + titleText + '</p></div>';
+            return box;
+        }
+    </script>
+</head>
+
+<body style="height: 100vh;" onload="createList();" onresize="createList();">
+    <section class="section" style="height: 100%;">
+        <div id="list" class="columns">
+            <!--<div class="column is-flex-direction-column"></div>
+            <div class="column is-flex-direction-column"></div>
+            <div class="column is-flex-direction-column"></div>-->
+        </div>
+    </section>
+</body>
+
+</html>
