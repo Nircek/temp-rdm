@@ -14,3 +14,17 @@ function createElement(type, classes = [], children = [], innerHTML = "") {
         element.appendChild(children[i]);
     return element;
 }
+
+/**
+ * @param {HTMLElement} element 
+ */
+function hide(element) {
+    element.style.visibility = "hidden";
+}
+
+/**
+ * @param {HTMLElement} element 
+ */
+function show(element) {
+    element.style.visibility = "visible";
+}

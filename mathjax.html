@@ -14,7 +14,7 @@
             "type": "EqEx",
             "name": "Pociągi 2",
             "content": {
-                "main": "Z miast A i B odległych o \\( d=300 km \\) wyruszają jednocześnie dwa pociągi z prędkościami \\( v_a=50 \\frac{m}{s} \\) oraz \\( v_b=67 \\frac{m}{s} \\). W jakiej odległości \\( x \\) od miasta A spotkają się te pociągi? Po jakim czasie \\( t \\) się to stanie?",
+                "main": "Z miast A i B odległych o \\( d=300 \\mathrm{km} \\) wyruszają jednocześnie dwa pociągi z prędkościami \\( v_a=50 \\mathrm{\\frac{m}{s}} \\) oraz \\( v_b=67 \\mathrm{\\frac{m}{s}} \\). W jakiej odległości \\( x \\) od miasta A spotkają się te pociągi? Po jakim czasie \\( t \\) się to stanie?",
                 "imgs": ["img/back.png", "img/start.png", "https://bulma.io/images/css-book/css-in-44-minutes-book-cover.png"],
                 "unknowns": [
                     ["x", "km"],
@@ -48,21 +48,39 @@
         function createUnknowns(list) {
             for (var i = 0; i < list.length; i++) {
                 const input = createElement("input", ["input", "is-primary"]);
-                if (i != 0)
-                    input.classList.add("mt-2");
                 setValueChecking(input);
+                const warning = createElement("p", ["help", "is-warning"], [], "Wymagana liczba");
+                hide(warning);
                 const unknown = {
                     "name": list[i][0],
                     "unit": list[i][1],
-                    "input": input
+                    "input": input,
+                    "warning": warning
                 };
                 unknowns.push(unknown);
             }
             for (let i = 0; i < unknowns.length; i++) {
-                document.getElementById("unknowns_names").appendChild(createElement("div", ["subtitle", "is-8"], [], "\\( " + unknowns[i].name + " = \\)"));
-                document.getElementById("unknowns_inputs").appendChild(unknowns[i].input);
-                document.getElementById("unknowns_units").appendChild(createElement("div", ["subtitle", "is-8"], [], "\\( " + unknowns[i].unit + " \\)"));
+                const unknown = unknowns[i];
+
+                const name = createElement("div", ["subtitle", "is-8", "full-height", "is-flex", "is-align-items-center"], [], "\\( " + unknown.name + " = \\)");
+                const unit = createElement("div", ["subtitle", "is-8", "full-height", "is-flex", "is-align-items-center"], [], "\\(\\mathrm{" + unknown.unit + "} \\)");
+                unit.style.minWidth = "2em";
+                const dummyLabel = createElement("p", ["help"]);
+
+                const nameColumn = createElement("div", ["column", "is-narrow", "pb-2rem"], [name]);
+                const inputColumn = createElement("div", ["column", "px-0"], [unknown.input, unknown.warning]);
+                const unitColumn = createElement("div", ["column", "is-narrow", "pb-2rem"], [unit]);
+
+                const columns = createElement("div", ["columns", "is-mobile"], [nameColumn, inputColumn, unitColumn]);
+                const tile = createElement("div", ["tile", "column", "is-flex", "is-justify-content-center"], [columns]);
+                document.getElementById("unknowns").appendChild(tile);
             }
+            const button = createElement("button", ["button", "is-primary"], [], "Submit");
+            button.id = "submitButton";
+            button.onclick = function() {
+                onSubmitClick()
+            };
+            document.getElementById("unknowns").appendChild(createElement("div", ["column", "is-narrow", "pb-2rem", "is-flex", "is-justify-content-right", "is-align-items-center"], [button]));
         }
 
         /**
@@ -83,28 +101,50 @@
         function setValueChecking(textbox) {
             ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
                 textbox.addEventListener(event, function() {
-                    const regex = /(^[+-]?\d*[,\.]?\d*$)|(^.{0}$)/
+                    const regex = /^[+-]?\d*[,\.]?\d*$/;
                     if (!regex.test(textbox.value)) {
                         if (!textbox.classList.contains("is-warning")) {
                             textbox.classList.remove("is-primary");
                             textbox.classList.add("is-warning");
+
+                            const i = getUnknownIndex(textbox);
+                            if (i != -1)
+                                show(unknowns[i].warning);
                         }
                     } else {
                         if (!textbox.classList.contains("is-primary")) {
                             textbox.classList.remove("is-warning");
                             textbox.classList.add("is-primary");
+
+                            const i = getUnknownIndex(textbox);
+                            if (i != -1)
+                                hide(unknowns[i].warning);
                         }
                     }
                 });
             });
         }
 
+        /**
+         * Returns index of element in unknowns or -1 when element is not found
+         * @param {HTMLElement} textbox
+         */
+        function getUnknownIndex(textbox) {
+            var i = -1
+            unknowns.forEach(unknown => {
+                if (unknown.input == textbox) {
+                    i = unknowns.indexOf(unknown);
+                    return;
+                }
+            });
+            return i;
+        }
+
         function checkInputValues() {
-            const regex = /^[+-]?\d*[,\.]?\d*$/;
-            const empty = /^.{0}$/
+            const regex = /^[+-]?\d*[,\.]?\d+$/;
             for (let i = 0; i < unknowns.length; i++) {
                 const value = unknowns[i].input.value
-                if (!regex.test(value) || empty.test(value))
+                if (!regex.test(value))
                     return false;
             }
             return true;
@@ -145,6 +185,10 @@
         .full-height {
             height: 100%;
         }
+        
+        .pb-2rem {
+            padding-bottom: 2rem;
+        }
     </style>
 </head>
 
@@ -157,21 +201,11 @@
                 <div id="image_container" class="columns is-justify-content-center">
                 </div>
             </div>
-            <div class="columns m-4">
-                <div class="column is-two-fifths-tablet is-one-third-desktop is-one-quarter-fullhd">
-                    <div class=" columns is-mobile is-vcentered">
-                        <div id="unknowns_names" class="column is-narrow">
-                        </div>
-                        <div id="unknowns_inputs" class="column px-0">
-                        </div>
-                        <div id="unknowns_units" class="column is-narrow">
-                        </div>
-                    </div>
-                    <div class="is-flex is-flex-direction-row-reverse">
-                        <button id="submitButton" class="button is-primary" onclick="onSubmitClick();">Submit</button>
-                    </div>
+            <div class="container mt-6">
+                <div id="unknowns" class="columns">
                 </div>
             </div>
+        </div>
         </div>
         </div>
     </section>
