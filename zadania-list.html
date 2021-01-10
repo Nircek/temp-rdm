@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML-full"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML-full"></script>
     <script src="Utils.js"></script>
     <script src="zadanie.js"></script>
     <script>
@@ -72,6 +72,7 @@
                 const box = createElement("a", ["menu-element"], [], textList[i]);
                 const li = createElement("li", [], [box]);
                 li.id = i;
+                li.tabIndex = 0;
                 li.onclick = function() {
                     const list = document.getElementById("list");
                     selectZadanie(li.id);
@@ -134,10 +135,6 @@
          */
         function selectZadanie(index = -1) {
             const elements = document.getElementById("list").children;
-            /*for (let i = 0; i < elements.length; i++) {
-                if (elements[i].children[0].classList.contains("is-active"))
-                    elements[i].children[0].classList.remove("is-active");
-            };*/
             const i = getSelectedZadanie();
             if (i != -1)
                 elements[i].children[0].classList.remove("is-active");
@@ -148,13 +145,34 @@
                     $("#menu").hide();
                     $("#content").show();
                 }
+                toggleLoading(true);
                 clearContainer();
                 //use index to fetch exercise
                 $("#container").load("zadanie.html", function() {
                     setData();
+                    MathJax.Hub.Queue([() => {
+                        //TODO Remove timeout
+                        setTimeout(() => {
+                            toggleLoading(false);
+                        }, 1000);
+                    }]);
                 });
             }
-            console.log(getSelectedZadanie());
+        }
+
+        /**
+         * @param {boolean} state
+         */
+        function toggleLoading(state) {
+            if (state) {
+                $("#container").hide();
+                document.getElementById("loading").classList.add("is-flex");
+                $("#loading").show();
+            } else {
+                $("#loading").hide();
+                document.getElementById("loading").classList.remove("is-flex");
+                $("#container").show();
+            }
         }
     </script>
     <style>
@@ -194,6 +212,9 @@
                         <span>WRÓĆ</span>
                     </button>
                     <div id="container" class="parent">
+                    </div>
+                    <div id="loading" class="is-flex is-align-items-center is-justify-content-center py-6" style="height: 100%;">
+                        <progress class="progress is-small is-primary" max="100" style="width: 70%;">15%</progress>
                     </div>
                 </div>
             </div>
