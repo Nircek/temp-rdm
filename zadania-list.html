@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zadania</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML-full"></script>
+    <script src="Utils.js"></script>
+    <script src="zadanie.js"></script>
+    <script>
+        function getScreenSize() {
+            const width = window.innerWidth;
+            //Screen size breakpoints
+            if (width <= 768)
+                return "mobile";
+            else if (width <= 1023)
+                return "tablet";
+            else if (width <= 1215)
+                return "desktop";
+            else if (width <= 1407)
+                return "widescreen";
+            else
+                return "fullhd";
+        }
+        var screenSize = getScreenSize();
+
+        function updateView() {
+            const newScreenSize = getScreenSize()
+            if (newScreenSize != screenSize) {
+                screenSize = newScreenSize;
+                setMobileView();
+            }
+        }
+
+        function createList() {
+            setMobileView();
+
+            var list = document.getElementById("list");
+            for (let i = 0; i < list.children.length; i++)
+                list.removeChild(list.children[i]);
+
+            populateList();
+            if (screenSize != "mobile")
+                selectZadanie(0);
+        }
+
+        function populateList() {
+            var textList = [
+                "Zadanie 1",
+                "Zadanie 2",
+                "Zadanie 3",
+                "Zadanie 4",
+                "Zadanie 5",
+                "Zadanie 6",
+                "Zadanie 7",
+                "Zadanie 8",
+                "Zadanie 9",
+                "Zadanie 10",
+                "Zadanie 11",
+                "Zadanie 12",
+                "Zadanie 13",
+                "Zadanie 14"
+            ];
+
+            var list = document.getElementById("list");
+            for (let i = 0; i < textList.length; i++) {
+                const box = createElement("a", ["menu-element"], [], textList[i]);
+                const li = createElement("li", [], [box]);
+                li.id = i;
+                li.onclick = function() {
+                    const list = document.getElementById("list");
+                    selectZadanie(li.id);
+                }
+                list.appendChild(li);
+            }
+        }
+
+        function onBackClick() {
+            selectZadanie();
+            clearContainer();
+            if (getScreenSize() == "mobile")
+                $("#content").hide();
+            else
+                clearContainer();
+            $("#menu").show();
+        }
+
+        function clearContainer() {
+            const container = document.getElementById("container");
+            for (let i = 0; i < container.children.length; i++)
+                container.removeChild(container.children[i]);
+        }
+
+        function setMobileView() {
+            if (getScreenSize() == "mobile") {
+                $("#content").hide();
+                $('#back').show();
+                selectZadanie(getSelectedZadanie());
+            } else {
+                $("#menu").show();
+                $("#content").show();
+                $('#back').hide();
+                if (document.getElementById("list").children.length > 0) {
+                    const i = getSelectedZadanie();
+                    selectZadanie(i != -1 ? i : 0);
+                }
+            }
+            document.getElementById("back").style.visibility = "visible";
+        }
+
+        /**
+         * Returns index of selected item or -1 when none are selected
+         */
+        function getSelectedZadanie() {
+            var index = -1;
+            const list = document.getElementById("list").children;
+            for (let i = 0; i < list.length; i++) {
+                if (list[i].children[0].classList.contains("is-active")) {
+                    index = i;
+                    break;
+                }
+            }
+            return index;
+        }
+
+        /**
+         * Selects list element or unselects all elements if index = -1
+         * @param {number} index
+         */
+        function selectZadanie(index = -1) {
+            const elements = document.getElementById("list").children;
+            /*for (let i = 0; i < elements.length; i++) {
+                if (elements[i].children[0].classList.contains("is-active"))
+                    elements[i].children[0].classList.remove("is-active");
+            };*/
+            const i = getSelectedZadanie();
+            if (i != -1)
+                elements[i].children[0].classList.remove("is-active");
+            if (index != -1) {
+                elements[index].children[0].classList.add("is-active");
+
+                if (screenSize == "mobile") {
+                    $("#menu").hide();
+                    $("#content").show();
+                }
+                clearContainer();
+                //use index to fetch exercise
+                $("#container").load("zadanie.html", function() {
+                    setData();
+                });
+            }
+            console.log(getSelectedZadanie());
+        }
+    </script>
+    <style>
+        .parent {
+            padding: 0 !important;
+            height: 100%;
+        }
+        
+        .menu-element {
+            text-align: justify;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+
+<body style="height: 100vh;" onload="createList();" onresize="updateView();">
+    <section class="section">
+        <div class="columns">
+            <div id="menu" class="column is-one-quarter-tablet is-one-fifth-desktop" style="height: 100%;">
+                <div class="box">
+                    <aside class="menu">
+                        <p class="menu-label">
+                            Zadania
+                        </p>
+                        <ul id="list" class="menu-list">
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+            <div id="content" class="column">
+                <div class="box" style="height: 100%;">
+                    <button id="back" class="button is-rounded mb-3" onclick="onBackClick();" style="visibility: collapse;">
+                        <span class="icon">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>
+                        <span>WRÓĆ</span>
+                    </button>
+                    <div id="container" class="parent">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

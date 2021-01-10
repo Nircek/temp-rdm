@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zadanie</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_CHTML-full"></script>
+    <style>
+        img {
+            max-height: 8rem;
+            height: auto;
+        }
+        
+        .full-height-box {
+            padding: 0rem;
+            height: 100%;
+        }
+        
+        .justify {
+            text-align: justify;
+        }
+        
+        .full-height {
+            height: 100%;
+        }
+        
+        .pb-2rem {
+            padding-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body onload="setData();">
+    <section class="section parent">
+        <div class="is-flex is-flex-direction-column" style="height: 100%;">
+            <p id="title" class="title is-1"></p>
+            <p id="description" class="subtitle justify m-4 mb-6"></p>
+            <div class="container">
+                <div id="image_container" class="columns is-justify-content-center">
+                </div>
+            </div>
+            <div class="container mt-6 mb-3">
+                <div id="unknowns" class="columns">
+                </div>
+            </div>
+            <div class="is-flex is-align-self-flex-end is-justify-content-center" style="width: 100%;">
+                <button id="submitButton" class="button is-primary" style="width: 30%;" onclick="onSubmitClick();">Sprawdź</button>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+</body>
+
+</html>
