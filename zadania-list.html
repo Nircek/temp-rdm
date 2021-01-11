@@ -100,6 +100,7 @@
         function setMobileView() {
             if (getScreenSize() == "mobile") {
                 document.getElementById("parent-section").classList.add("mobile-root-padding");
+                document.getElementById("parent-columns").classList.add("mobile-columns-margins");
                 document.getElementById("content-box").classList.add("mobile-root-padding");
 
                 $("#content").hide();
@@ -107,6 +108,7 @@
                 selectZadanie(getSelectedZadanie());
             } else {
                 document.getElementById("parent-section").classList.remove("mobile-root-padding");
+                document.getElementById("parent-columns").classList.remove("mobile-columns-margins");
                 document.getElementById("content-box").classList.remove("mobile-root-padding");
 
                 $("#menu").show();
@@ -196,12 +198,17 @@
         .mobile-root-padding {
             padding: 1rem .5rem !important;
         }
+        
+        .mobile-columns-margins {
+            margin-left: -.5rem !important;
+            margin-right: -.5rem !important;
+        }
     </style>
 </head>
 
 <body style="height: 100vh;" onload="createList();" onresize="updateView();">
     <section id="parent-section" class="section">
-        <div class="columns">
+        <div id="parent-columns" class="columns">
             <div id="menu" class="column is-one-quarter-tablet is-one-fifth-desktop" style="height: 100%;">
                 <div class="box">
                     <aside class="menu">

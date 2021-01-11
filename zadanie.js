@@ -3,7 +3,7 @@ const zadanie = {
     "name": "Pociągi 2",
     "content": {
         "main": "Z miast A i B odległych o \\( d=300 \\mathrm{km} \\) wyruszają jednocześnie dwa pociągi z prędkościami \\( v_a=50 \\mathrm{\\frac{m}{s}} \\) oraz \\( v_b=67 \\mathrm{\\frac{m}{s}} \\). W jakiej odległości \\( x \\) od miasta A spotkają się te pociągi? Po jakim czasie \\( t \\) się to stanie?",
-        "imgs": ["img/back.png", "img/start.png", "https://bulma.io/images/css-book/css-in-44-minutes-book-cover.png"],
+        "imgs": ["https://bulma.io/images/placeholders/720x240.png", "https://bulma.io/images/placeholders/640x480.png", "https://bulma.io/images/placeholders/240x720.png"],
         "unknowns": [
             ["x", "km"],
             ["t", "s"]
