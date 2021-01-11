@@ -19,6 +19,9 @@ function setData() {
     if(screenSize == "mobile") {
         title.classList.replace("is-1", "is-3");
         title.classList.replace("mb-2", "my-2");
+        title.style.paddingLeft = ".3rem";
+        title.style.paddingRight = ".3rem";
+
         desc.classList.add("is-6");
         desc.classList.replace("m-4", "m-2");
         desc.classList.replace("mb-6", "mb-4");

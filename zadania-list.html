@@ -99,10 +99,16 @@
 
         function setMobileView() {
             if (getScreenSize() == "mobile") {
+                document.getElementById("parent-section").classList.add("mobile-root-padding");
+                document.getElementById("content-box").classList.add("mobile-root-padding");
+
                 $("#content").hide();
                 $('#back').show();
                 selectZadanie(getSelectedZadanie());
             } else {
+                document.getElementById("parent-section").classList.remove("mobile-root-padding");
+                document.getElementById("content-box").classList.remove("mobile-root-padding");
+
                 $("#menu").show();
                 $("#content").show();
                 $('#back').hide();
@@ -186,11 +192,15 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+        
+        .mobile-root-padding {
+            padding: 1rem .5rem !important;
+        }
     </style>
 </head>
 
 <body style="height: 100vh;" onload="createList();" onresize="updateView();">
-    <section class="section">
+    <section id="parent-section" class="section">
         <div class="columns">
             <div id="menu" class="column is-one-quarter-tablet is-one-fifth-desktop" style="height: 100%;">
                 <div class="box">
@@ -204,7 +214,7 @@
                 </div>
             </div>
             <div id="content" class="column">
-                <div class="box" style="height: 100%;">
+                <div id="content-box" class="box" style="height: 100%;">
                     <button id="back" class="button is-rounded mb-3" onclick="onBackClick();" style="visibility: collapse;">
                         <span class="icon">
                             <i class="fas fa-chevron-left"></i>
