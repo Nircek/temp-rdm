@@ -14,8 +14,17 @@ var unknowns = [];
 
 function setData() {
     unknowns = [];
-    document.getElementById("title").innerHTML = zadanie.name;
-    document.getElementById("description").innerHTML = zadanie.content.main;
+    const title = document.getElementById("title");
+    const desc = document.getElementById("description");
+    if(screenSize == "mobile") {
+        title.classList.replace("is-1", "is-3");
+        title.classList.replace("mb-2", "my-2");
+        desc.classList.add("is-6");
+        desc.classList.replace("m-4", "m-2");
+        desc.classList.replace("mb-6", "mb-4");
+    }
+    title.innerHTML = zadanie.name;
+    desc.innerHTML = zadanie.content.main;
     const image_container = document.getElementById("image_container");
     for (var i = 0; i < zadanie.content.imgs.length; i++)
         image_container.appendChild(createImage(zadanie.content.imgs[i]));
@@ -51,8 +60,9 @@ function createUnknowns(list) {
     for (let i = 0; i < unknowns.length; i++) {
         const unknown = unknowns[i];
 
-        const name = createElement("div", ["subtitle", "is-8", "full-height", "is-flex", "is-align-items-center"], [], "\\( " + unknown.name + " = \\)");
-        const unit = createElement("div", ["subtitle", "is-8", "full-height", "is-flex", "is-align-items-center"], [], "\\(\\mathrm{" + unknown.unit + "} \\)");
+        const name = createElement("div", ["subtitle", "full-height", "is-flex", "is-align-items-center", "is-justify-content-right"], [], "\\( " + unknown.name + " = \\)");
+        name.style.minWidth = "2em";
+        const unit = createElement("div", ["subtitle", "full-height", "is-flex", "is-align-items-center"], [], "\\(\\mathrm{" + unknown.unit + "} \\)");
         unit.style.minWidth = "2em";
         const dummyLabel = createElement("p", ["help"]);
 
@@ -63,7 +73,7 @@ function createUnknowns(list) {
         const columns = createElement("div", ["columns", "is-mobile"], [nameColumn, inputColumn, unitColumn]);
         const tile = createElement("div", ["tile", "column", "is-flex", "is-justify-content-center"], [columns]);
         tile.style.paddingTop = 0;
-        tile.style.paddingBottom = "0.25rem";
+        tile.style.paddingBottom = ".5rem";
         document.getElementById("unknowns").appendChild(tile);
     }
 }
