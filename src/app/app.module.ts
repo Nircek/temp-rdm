@@ -8,6 +8,8 @@ import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductAlertsComponent } from './product-alerts/product-alerts.component';
 import { MathJaxDirective } from './helper/mathjax';
 import { DataService } from './products-list/DataService';
+import { EqExComponent } from './eqex/eqex.component';
+import { EqExDirective } from './eqex/eqex.directive';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { DataService } from './products-list/DataService';
     ProductsListComponent,
     ProductAlertsComponent,
     MathJaxDirective,
+    EqExDirective,
+    EqExComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [DataService],

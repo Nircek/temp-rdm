@@ -28,3 +28,16 @@
 <progress *ngIf="loading != products.length && products.length > 0" class="progress is-primary m-6" max="100">15%</progress>
 
 <h1 class="title is-6" *ngIf="products.length == 0">Empty list</h1>
+
+<div class="columns">
+  <div class="column is-narrow">
+    <button class="button is-success" (click)="loadComponent()">Add view</button>
+  </div>
+  <div class="column is-narrow">
+    <button class="button is-danger" (click)="clearComponent()">Remove view</button>
+  </div>
+</div>
+
+<div>
+  <ng-template eqexHost></ng-template>
+</div>

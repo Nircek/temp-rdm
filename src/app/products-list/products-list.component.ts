@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { TexElement, TexElementCallback } from '../helper/mathjax';
 import { DataService } from './DataService';
+import { EqExComponent } from '../eqex/eqex.component';
+import { EqExDirective } from '../eqex/eqex.directive';
 
 interface Product {
   id: number;
@@ -23,8 +25,12 @@ export function throwResponseError(error: any) {
 export class ProductsListComponent implements TexElementCallback {
   products: Product[] = [];
   loading: number = 0;
+  @ViewChild(EqExDirective, { static: true }) eqexHost!: EqExDirective;
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private factoryResolver: ComponentFactoryResolver
+  ) {}
 
   share(product: Product) {
     const ans: any = {};
@@ -88,5 +94,24 @@ export class ProductsListComponent implements TexElementCallback {
           description: 'sasdasdasdasdasdasd',
         },
       ];
+  }
+
+  loadComponent() {
+    if (this.eqexHost) {
+      const factory = this.factoryResolver.resolveComponentFactory(
+        EqExComponent
+      );
+
+      const ref = this.eqexHost.viewContainerRef;
+      ref.clear();
+
+      const componentRef = ref.createComponent<EqExComponent>(factory);
+      componentRef.instance.data =
+        this.products[0] !== undefined ? this.products[0].name : 'undef';
+    }
+  }
+
+  clearComponent() {
+    if (this.eqexHost) this.eqexHost.viewContainerRef.clear();
   }
 }
