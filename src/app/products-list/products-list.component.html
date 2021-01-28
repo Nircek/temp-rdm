@@ -19,7 +19,7 @@
       <h3 class="subtitle is-6" [mathjax]="makeTexElement(product.price)">{{ product.price }}</h3>
     </div>
     <div class="container is-flex mt-2">
-      <button class="button is-primary mr-2" (click)="share()">Share</button>
+      <button class="button is-primary mr-2" (click)="share(product)">Share</button>
       <app-product-alerts [product]="product" (notify)="onNotify()"></app-product-alerts>
     </div>
   </div>

@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
 import { TexElement, TexElementCallback } from '../helper/mathjax';
+import { DataService } from './DataService';
 
 interface Product {
   id: number;
   name: string;
   price: number;
   description: string;
+}
+
+export function throwResponseError(error: any) {
+  console.error(
+    'Request failed with error ' + error.status + ': "' + error.message + '"'
+  );
 }
 
 @Component({
@@ -17,12 +24,30 @@ export class ProductsListComponent implements TexElementCallback {
   products: Product[] = [];
   loading: number = 0;
 
-  share() {
-    alert('Shared!');
+  constructor(private dataService: DataService) {}
+
+  share(product: Product) {
+    const ans: any = {};
+    ans[product.name] = product.id;
+    this.dataService.postAnswer(ans).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        throwResponseError(error);
+      }
+    );
   }
 
   onNotify() {
-    alert('Notified');
+    this.dataService.getExercises().subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        throwResponseError(error);
+      }
+    );
   }
 
   makeTexElement(expression: string | number) {
@@ -57,7 +82,7 @@ export class ProductsListComponent implements TexElementCallback {
     else
       this.products = [
         {
-          id: 4,
+          id: 1.1,
           name: 'Phone Standarddddd',
           price: 300,
           description: 'sasdasdasdasdasdasd',
