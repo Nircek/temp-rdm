@@ -1,9 +1,9 @@
 import { Component, ComponentFactoryResolver, ViewChild } from '@angular/core';
-import { TexElement, TexElementCallback } from '../helper/mathjax';
 import { DataService } from './DataService';
 import { EqExComponent } from '../eqex/eqex.component';
 import { EqExDirective } from '../eqex/eqex.directive';
 import { productList, updateList } from '../product-list';
+declare var MathJax: any;
 
 export interface Product {
   id: number;
@@ -23,7 +23,7 @@ export function throwResponseError(error: any) {
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.scss'],
 })
-export class ProductsListComponent implements TexElementCallback {
+export class ProductsListComponent {
   products: Product[] = productList;
   loading: number = 0;
   @ViewChild(EqExDirective, { static: true }) eqexHost!: EqExDirective;
@@ -55,12 +55,6 @@ export class ProductsListComponent implements TexElementCallback {
         throwResponseError(error);
       }
     );
-  }
-
-  makeTexElement(expression: string | number) {
-    return new TexElement(expression, () => {
-      this.loading++;
-    });
   }
 
   changeList() {

@@ -5,7 +5,7 @@
   </div>
 </div>
 
-<div [ngClass]="{'hidden':  loading != products.length && products.length > 0}">
+<div *ngIf="products.length != 0">
   <div *ngFor="let product of products" class="m-4">
     <h2 class="subtitle mb-0">
       <a [title]="product.name + ' details'" [routerLink]="['/products', product.id]">
@@ -16,7 +16,7 @@
       <p *ngIf="product.description" class="mr-2">
         {{ product.description }}
       </p>
-      <h3 class="subtitle is-6" [mathjax]="makeTexElement(product.price)">{{ product.price }}</h3>
+      <p [mathjax]="product.price"></p>
     </div>
     <div class="container is-flex mt-2">
       <button class="button is-primary mr-2" (click)="share(product)">Share</button>
@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<progress *ngIf="loading != products.length && products.length > 0" class="progress is-primary m-6" max="100">15%</progress>
+<progress *ngIf="products.length == 0" class="progress is-primary m-6" max="100">15%</progress>
 
 <h1 class="title is-6" *ngIf="products.length == 0">Empty list</h1>
 
