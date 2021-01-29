@@ -8,7 +8,7 @@
 <div [ngClass]="{'hidden':  loading != products.length && products.length > 0}">
   <div *ngFor="let product of products" class="m-4">
     <h2 class="subtitle mb-0">
-      <a [title]="product.name + ' details'">
+      <a [title]="product.name + ' details'" [routerLink]="['/products', product.id]">
         {{ product.name }}
       </a>
     </h2>
