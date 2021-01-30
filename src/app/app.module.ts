@@ -12,6 +12,8 @@ import { EqExComponent } from './eqex/eqex.component';
 import { EqExDirective } from './eqex/eqex.directive';
 import { RouterModule } from '@angular/router';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { CartComponent } from './cart/cart.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     MathJaxDirective,
     EqExDirective,
     EqExComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,9 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     RouterModule.forRoot([
       { path: '', component: ProductsListComponent },
       { path: 'products/:productId', component: ProductDetailsComponent },
+      { path: 'cart', component: CartComponent },
     ]),
+    ReactiveFormsModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

@@ -1,0 +1,41 @@
+<h2 class="title">Cart</h2>
+
+<div *ngFor="let item of items" class="my-2">
+  <div class="box">
+    <div class="columns">
+      <span class="column">{{ item.name }}</span>
+      <span class="column is-narrow">{{ item.price | currency }}</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="box">
+  <h1 class="subtitle has-text-weight-semibold">Checkout</h1>
+  <form [formGroup]="checkoutForm" (submit)="onSubmit()">
+
+    <div class="field">
+      <label class="label" for="name">
+        Name
+      </label>
+      <div class="control">
+        <input class="input" id="name" type="text" formControlName="name">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="address">
+        Address
+      </label>
+      <div class="control">
+        <input class="input" id="address" type="text" formControlName="address">
+      </div>
+    </div>
+
+    <div class="field is-grouped is-grouped-right">
+      <div class="control">
+        <button class="button is-light" type="submit">Purchase</button>
+      </div>
+    </div>
+  </form>
+</div>
