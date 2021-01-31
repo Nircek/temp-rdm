@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Pair, Tuple } from '../helper/utils';
 import { NavbarService } from './navbar.service';
 
 @Component({
@@ -8,6 +9,8 @@ import { NavbarService } from './navbar.service';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   isOpen: boolean = false;
+  @Input() menuElements?: Pair<string, string>[];
+  @Input() buttonElements?: Tuple<string, string, string>[];
 
   constructor(private navbarService: NavbarService) {}
 

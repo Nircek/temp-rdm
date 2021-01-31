@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     EqExComponent,
     CartComponent,
     NavbarComponent,
+    SidenavComponent,
   ],
   imports: [
     BrowserModule,
