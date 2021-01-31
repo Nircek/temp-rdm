@@ -14,6 +14,9 @@ import { RouterModule } from '@angular/router';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CartComponent } from './cart/cart.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NavbarComponent } from './navbar/navbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     EqExDirective,
     EqExComponent,
     CartComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +40,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       { path: 'cart', component: CartComponent },
     ]),
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

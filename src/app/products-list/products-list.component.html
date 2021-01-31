@@ -25,7 +25,9 @@
   </div>
 </div>
 
-<progress *ngIf="products.length == 0" class="progress is-primary m-6" max="100">15%</progress>
+<div class="p-6">
+  <progress *ngIf="products.length == 0" class="progress is-primary" max="100">15%</progress>
+</div>
 
 <h1 class="title is-6" *ngIf="products.length == 0">Empty list</h1>
 
