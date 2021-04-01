@@ -6,17 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
+      margin: 0;
+      padding: 0;
       background-color: #333;
       color: white;
+      animation: filter-animation 20s infinite;
     }
     #photos {
       display:block;
-      margin: 2ch auto;
-      width: 90vmin;
+      margin: auto;
+      width: 100vw;
+      filter: invert(100%) sepia(50%) saturate(50000%);
+    }
+    @keyframes filter-animation {0% {filter: hue-rotate(0deg);} 50% {filter: hue-rotate(180deg);} 100% {filter: hue-rotate(0deg);}}
+    @media screen and (min-width:1000px) {
+      #photos {
+        width: 1000px;
+      }
     }
   </style>
 </head>
 <body>
-<img src="authors.svg" id="photos">
+<object id="photos" data="authors-path-opt.svg" type="image/svg+xml"></object>
 </body>
 </html>
