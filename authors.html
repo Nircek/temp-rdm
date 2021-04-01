@@ -3,23 +3,17 @@
 <head>
   <meta charset="utf-8">
   <title>Authors</title>
+  <meta name="author" content="Marcin Zepp">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      margin: 0;
-      background-color: #333;
-      overflow-x: hidden;
-    }
-    #photos {
-      display: block;
-      margin: auto;
-      width: 100vw;
-    }
-    p, pre {
-      font-size: 1.9vw;
-      text-align: center;
-      color: white;
-    }
+    body { margin: 0; background-color: #333; overflow-x: hidden; }
+    #photos { display: block; margin: auto; width: 100vw; }
+    p, .table { font-size: 1.9vw; text-align: center; color: #fff; }
+    .table { margin: auto; width: max-content; font-family: monospace, monospace; border: 1px solid #fff; padding: .1em; }
+    .wrapper { display: block; border: .1em solid #fff; }
+    .segment { padding: .5em; }
+    .segment:not(:last-child) { border-bottom: .1em solid #fff; }
+
     /* SRC: https://stackoverflow.com/a/7291903/6732111 */
     a { color: #FF0000; }         /* Unvisited link   */
     a:visited { color: #00FF00; } /* Visited link     */
@@ -27,18 +21,13 @@
     a:active { color: #0000FF; }  /* Selected link    */
 
     @media screen and (min-width:1600px) { #photos { width: 1600px; } }
-    @media screen and (min-width:768px) { p, pre { font-size: .9rem; } }
+    @media screen and (min-width:768px) { p, .table { font-size: .9rem; } }
   </style>
 </head>
 <body>
   <svg id="photos" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-111 0 220 73">
     <style>
-    text {
-      font: .7px monospace;
-      text-anchor: middle;
-      fill: #fff;
-      white-space: pre;
-    }
+    text { font: .7px monospace; text-anchor: middle; fill: #fff; white-space: pre; }
     </style>
     <text x="0" y="2" textLength="27">   db    88   88 888888 88  88  dP"Yb  88""Yb .dP"Y8</text>
     <text x="0" y="3" textLength="27">  dPYb   88   88   88   88  88 dP   Yb 88__dP `Ybo."</text>
@@ -112,27 +101,27 @@
   </svg>
   <p>Projekt Pikne Zadania (nieoficjalna nazwa: Niedostateczny) tworzą pokazane wyżej&nbsp;osoby, uczniowie 8&nbsp;LO w&nbsp;Katowicach pod&nbsp;nadzorem prof.&nbsp; Bogusława&nbsp;Lanusznego.</p>
   <p>The project has been made by students of 8th High School of Maria Skłodowska-Curie in Katowice (class 2d in 2020/2021).</p>
-  <pre>
-╔══════════════════════════════════════════════════════════════════════════╗
-║    Copyright (c) 2021 Nircek (Marcin Zepp), Marwyk2003 (Marcin Wykpis),  ║
-║    miloszwasacz (Miłosz Wąsacz), MichalTheProgrammer (Michał Szymocha)   ║
-╟──────────────────────────────────────────────────────────────────────────╢
-║ This file is the part of Pikne Zadanie project available at:             ║
-║          &lt;<a href="https://www.github.com/Pikne-Programy/pikne-zadania/">https://www.github.com/Pikne-Programy/pikne-zadania/</a>&gt;          ║
-╟──────────────────────────────────────────────────────────────────────────╢
-║ This program is free software: you can redistribute it and/or modify it  ║
-║ under the terms of the GNU Affero General Public License as published by ║
-║ the Free Software Foundation, either version 3 of the License,           ║
-║ or (at your option) any later version.                                   ║
-╟──────────────────────────────────────────────────────────────────────────╢
-║ This program is distributed in the hope that it will be useful,          ║
-║ but WITHOUT ANY WARRANTY; without even the implied warranty of           ║
-║ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                     ║
-║ See the GNU Affero General Public License for more details.              ║
-╟──────────────────────────────────────────────────────────────────────────╢
-║ You should have received a copy of the GNU Affero General Public License ║
-║ along with this program. If not, see &lt;<a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>&gt;.    ║
-╚══════════════════════════════════════════════════════════════════════════╝
-</pre>
-</body>
-</html>
+  <div class="table">
+    <div class="wrapper">
+      <div class="segment">
+        Copyright (c) 2021 Nircek (Marcin Zepp), Marwyk2003 (Marcin Wykpis),<br>
+        miloszwasacz (Miłosz Wąsacz), MichalTheProgrammer (Michał Szymocha)</div>
+      <div class="segment">
+        This file is the part of Pikne Zadanie project available at:<br>
+        &lt;<a href="https://www.github.com/Pikne-Programy/pikne-zadania/">https://www.github.com/Pikne-Programy/pikne-zadania/</a>&gt;</div>
+      <div class="segment">
+        This program is free software: you can redistribute it and/or modify it<br>
+        under the terms of the GNU Affero General Public License as published by<br>
+        the Free Software Foundation, either version 3 of the License,<br>
+        or (at your option) any later version.</div>
+      <div class="segment">
+        This program is distributed in the hope that it will be useful,<br>
+        but WITHOUT ANY WARRANTY; without even the implied warranty of<br>
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.<br>
+        See the GNU Affero General Public License for more details.</div>
+      <div class="segment">
+        You should have received a copy of the GNU Affero General Public License<br>
+        along with this program. If not, see &lt;<a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>&gt;.</div>        
+    </div>
+  </div>
+</body></html>
